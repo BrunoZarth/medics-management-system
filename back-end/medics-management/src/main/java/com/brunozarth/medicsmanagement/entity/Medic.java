@@ -6,6 +6,20 @@ import java.util.List;
 
 @Entity
 public class Medic {
+
+    public Medic(Long id, String name, String crm, String landline, String phone, String cep, String adress, List<MedicalSpecialty> medicalSpecialty) {
+        this.id = id;
+        this.name = name;
+        this.crm = crm;
+        this.landline = landline;
+        this.phone = phone;
+        this.cep = cep;
+        this.adress = adress;
+        this.medicalSpecialty = medicalSpecialty;
+    }
+
+    public Medic(){};
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -13,7 +27,7 @@ public class Medic {
 
     String name; //máximo 120 caractéres
 
-    int CRM; // máximo 7 caracteres
+    String crm; // somente números máximo 7 caracteres
 
     String landline; // somente números
 
@@ -32,5 +46,61 @@ public class Medic {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public void setCrm(String crm) {
+        this.crm = crm;
+    }
+
+    public String getLandline() {
+        return landline;
+    }
+
+    public void setLandline(String landline) {
+        this.landline = landline;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public List<MedicalSpecialty> getMedicalSpecialty() {
+        return medicalSpecialty;
+    }
+
+    public void setMedicalSpecialty(List<MedicalSpecialty> medicalSpecialty) {
+        this.medicalSpecialty = medicalSpecialty;
     }
 }
