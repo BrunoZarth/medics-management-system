@@ -5,6 +5,8 @@ import com.brunozarth.medicsmanagement.entity.MedicForm;
 import com.brunozarth.medicsmanagement.entity.MedicalSpecialty;
 import com.brunozarth.medicsmanagement.repository.MedicRepository;
 import com.brunozarth.medicsmanagement.utils.EMedicalSpecialty;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,10 +19,10 @@ import java.util.Optional;
 import java.util.Random;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class MedicServiceTest {
 
     @InjectMocks
@@ -29,8 +31,9 @@ public class MedicServiceTest {
     @Mock
     private MedicRepository medicRepository;
 
+    // READ
     @Test
-    void should_find_and_return_one_medic() {
+    void should_find_by_id_and_return_one_medic() {
         // Arrange
         final Medic expectedMedic = getMedic();
         when(medicRepository.findById(anyLong())).thenReturn(Optional.of(expectedMedic));
@@ -44,6 +47,38 @@ public class MedicServiceTest {
         verifyNoMoreInteractions(medicRepository);
     }
 
+    @Test
+    void should_find_by_phone_and_return_one_medic(){}
+    @Test
+    void should_find_by_crm_and_return_one_medic(){}
+    @Test
+    void should_find_and_return_all_medics() {}
+    @Test
+    void should_find_by_landline_and_return_medic_list(){}
+    @Test
+    void should_find_by_name_and_return_medic_list() {}
+    @Test
+    void should_find_by_cep_and_return_medic_list(){}
+    @Test
+    void should_find_by_adress_and_return_medic_list(){}
+    @Test
+    void should_find_by_medical_specialty_and_return_medic_list(){}
+    @Test
+    void should_not_found_a_medic_that_doesnt_exists() {}
+
+    // CREATE
+    @Test
+    void should_save_one_medic() {}
+
+    // UPDATE
+    @Test
+    void should_update_one_medic() {}
+
+    // DELETE
+    @Test
+    void should_delete_one_medic() {}
+
+    // UTILS
     private Medic getMedic(){
         MedicalSpecialty medicalSpecialty1 = new MedicalSpecialty(1, EMedicalSpecialty.ANGIOLOGIA);
         MedicalSpecialty medicalSpecialty2 = new MedicalSpecialty(2, EMedicalSpecialty.ALERGOLOGIA);
@@ -73,6 +108,7 @@ public class MedicServiceTest {
     }
 
     private Long getRandomLong(){
-        return Long.valueOf(new Random().ints(1, 10).findFirst().getAsInt());
+        Long longValue = Long.valueOf(new Random().ints(1, 10).findFirst().getAsInt());
+        return longValue;
     }
 }
