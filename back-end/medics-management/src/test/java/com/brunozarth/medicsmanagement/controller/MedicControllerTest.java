@@ -74,7 +74,9 @@ public class MedicControllerTest {
 
     // CREATE
     @Test
-    void should_save_one_medic() {}
+    void should_save_one_medic() {
+
+    }
 
     // UPDATE
     @Test
