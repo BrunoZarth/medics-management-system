@@ -1,6 +1,8 @@
 package com.brunozarth.medicsmanagement.controller;
 
+import com.brunozarth.medicsmanagement.entity.Medic;
 import com.brunozarth.medicsmanagement.repository.MedicRepository;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -14,10 +16,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.aMapWithSize;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,11 +42,45 @@ public class MedicControllerTest {
 
     @Test
     void should_retrieve_all_medics() throws Exception {
-        this.mockMvc.perform(get("/medic/find-all/"))
+        this.mockMvc.perform(get("/medic/find-all"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(0)));
     }
+
+    @Test
+    void should_find_by_id_and_retrieve_one_medic() {}
+
+    @Test
+    void should_find_by_phone_and_retrieve_one_medic(){}
+    @Test
+    void should_find_by_crm_and_retrieve_one_medic(){}
+    @Test
+    void should_find_and_retrieve_all_medics() {}
+    @Test
+    void should_find_by_landline_and_retrieve_medic_list(){}
+    @Test
+    void should_find_by_name_and_retrieve_medic_list() {}
+    @Test
+    void should_find_by_cep_and_retrieve_medic_list(){}
+    @Test
+    void should_find_by_adress_and_retrieve_medic_list(){}
+    @Test
+    void should_find_by_medical_specialty_and_retrieve_medic_list(){}
+    @Test
+    void should_not_found_a_medic_that_doesnt_exists() {}
+
+    // CREATE
+    @Test
+    void should_save_one_medic() {}
+
+    // UPDATE
+    @Test
+    void should_update_one_medic() {}
+
+    // DELETE
+    @Test
+    void should_delete_one_medic() {}
 }
