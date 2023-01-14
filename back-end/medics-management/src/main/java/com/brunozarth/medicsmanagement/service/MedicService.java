@@ -18,17 +18,17 @@ public class MedicService implements IMedicService{
         this.medicRepository = medicRepository;
     }
     public Medic findByIdOrThrowBadRequestException(Long id) {
-        return medicRepository.findById(id).orElseThrow(() -> new BadRequestException("sas"));
+        return medicRepository.findById(id).orElseThrow(() -> new BadRequestException("Medic ID not found!"));
     }
 
     @Override
-    public Medic findByPhone(String phone) {
-        return null;
+    public Medic findByPhoneOrThrowBadRequestException(String phone) {
+        return medicRepository.findByPhone(phone).orElseThrow(() -> new BadRequestException("Medic Phone not found!"));
     }
 
     @Override
-    public Medic findByCrm(String crm) {
-        return null;
+    public Medic findByCrmOrThrowBadRequestException(String crm) {
+        return medicRepository.findByCrm(crm).orElseThrow(() -> new BadRequestException("Medic CRM not found!"));
     }
 
     public List<Medic> findAll() {
@@ -37,41 +37,58 @@ public class MedicService implements IMedicService{
 
     @Override
     public List<Medic> findByLandline(String landline) {
-        return null;
+        return medicRepository.findByLandline(landline);
     }
 
     @Override
     public List<Medic> findByName(String name) {
-        return null;
+        return medicRepository.findByName(name);
     }
 
     @Override
     public List<Medic> findByCep(String cep) {
-        return null;
+        return medicRepository.findByCep(cep);
     }
 
     @Override
-    public List<Medic> findBy(String adress) {
-        return null;
-    }
-
-    @Override
-    public List<Medic> findByMedicalSpecialty(String medicalSpecialty) {
-        return null;
+    public List<Medic> findByMedicalSpecialtyMedicalSpecialty(String medicalSpecialty) {
+        return medicRepository.findByMedicalSpecialtyMedicalSpecialty(medicalSpecialty);
     }
 
     @Override
     public Medic saveMedic(MedicForm medicForm) {
-        return null;
+
+        Medic medic = new Medic();
+
+        medic.setName(medicForm.getName());
+        medic.setCrm(medicForm.getCrm());
+        medic.setLandline(medicForm.getLandline());
+        medic.setPhone(medicForm.getPhone());
+        medic.setCep(medicForm.getCep());
+        medic.setAdress(medicForm.getAdress());
+        medic.setMedicalSpecialty(medicForm.getMedicalSpecialty());
+
+        return medicRepository.save(medic);
     }
 
     @Override
     public Medic updateMedic(MedicUpdateForm medicUpdateForm) {
-        return null;
+
+        Medic medic = this.findByCrmOrThrowBadRequestException(medicUpdateForm.getCrm()); // CRM is always unique
+
+        medic.setName(medicUpdateForm.getName());
+        medic.setCrm(medicUpdateForm.getCrm());
+        medic.setLandline(medicUpdateForm.getLandline());
+        medic.setPhone(medicUpdateForm.getPhone());
+        medic.setCep(medicUpdateForm.getCep());
+        medic.setAdress(medicUpdateForm.getAdress());
+        medic.setMedicalSpecialty(medicUpdateForm.getMedicalSpecialty());
+
+        return medicRepository.save(medic);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        medicRepository.deleteById(id);
     }
 }

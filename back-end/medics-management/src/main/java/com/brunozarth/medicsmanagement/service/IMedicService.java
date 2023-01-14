@@ -4,6 +4,7 @@ import com.brunozarth.medicsmanagement.entity.Medic;
 import com.brunozarth.medicsmanagement.entity.MedicForm;
 import com.brunozarth.medicsmanagement.entity.MedicUpdateForm;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IMedicService {
@@ -11,9 +12,9 @@ public interface IMedicService {
     // READ
     Medic findByIdOrThrowBadRequestException(Long id);
 
-    Medic findByPhone(String phone);
+    Medic findByPhoneOrThrowBadRequestException(String phone);
 
-    Medic findByCrm(String crm);
+    Medic findByCrmOrThrowBadRequestException(String crm);
 
     List<Medic> findAll();
 
@@ -23,9 +24,11 @@ public interface IMedicService {
 
     List<Medic> findByCep(String cep);
 
-    List<Medic> findBy(String adress);
+    //List<Medic> findByAdress(String adress);
 
-    List<Medic> findByMedicalSpecialty(String medicalSpecialty);
+    //List<Medic> findByMedicalSpecialtyList(List<String> medicalSpecialty);
+
+    List<Medic> findByMedicalSpecialtyMedicalSpecialty(String medicalSpecialty);
 
     // CREATE
     Medic saveMedic(MedicForm medicForm);
@@ -35,5 +38,6 @@ public interface IMedicService {
 
     // DELETE
     void deleteById(Long id);
+
 
 }
