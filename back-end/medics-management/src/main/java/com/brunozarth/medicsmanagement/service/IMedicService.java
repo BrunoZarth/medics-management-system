@@ -3,8 +3,8 @@ package com.brunozarth.medicsmanagement.service;
 import com.brunozarth.medicsmanagement.entity.Medic;
 import com.brunozarth.medicsmanagement.entity.MedicForm;
 import com.brunozarth.medicsmanagement.entity.MedicUpdateForm;
+import com.brunozarth.medicsmanagement.utils.EMedicalSpecialty;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface IMedicService {
@@ -28,7 +28,7 @@ public interface IMedicService {
 
     //List<Medic> findByMedicalSpecialtyList(List<String> medicalSpecialty);
 
-    List<Medic> findByMedicalSpecialtyMedicalSpecialty(String medicalSpecialty);
+    List<Medic> findByMedicalSpecialty(EMedicalSpecialty medicalSpecialty);
 
     // CREATE
     Medic saveMedic(MedicForm medicForm);

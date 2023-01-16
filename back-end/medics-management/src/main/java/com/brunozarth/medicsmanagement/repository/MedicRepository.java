@@ -1,6 +1,7 @@
 package com.brunozarth.medicsmanagement.repository;
 
 import com.brunozarth.medicsmanagement.entity.Medic;
+import com.brunozarth.medicsmanagement.utils.EMedicalSpecialty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,5 @@ public interface MedicRepository extends JpaRepository<Medic, Long> {
 
     // List<Medic>  findByAdress(String adress); // Useless since we have findByCep method.
 
-    List<Medic>  findByMedicalSpecialtyMedicalSpecialty(String medicalSpecialty);
+    List<Medic> findByMedicalSpecialty(EMedicalSpecialty medicalSpecialty);
 }

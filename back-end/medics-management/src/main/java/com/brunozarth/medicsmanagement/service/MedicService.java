@@ -5,6 +5,7 @@ import com.brunozarth.medicsmanagement.entity.MedicForm;
 import com.brunozarth.medicsmanagement.entity.MedicUpdateForm;
 import com.brunozarth.medicsmanagement.exception.BadRequestException;
 import com.brunozarth.medicsmanagement.repository.MedicRepository;
+import com.brunozarth.medicsmanagement.utils.EMedicalSpecialty;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,24 +52,29 @@ public class MedicService implements IMedicService{
     }
 
     @Override
-    public List<Medic> findByMedicalSpecialtyMedicalSpecialty(String medicalSpecialty) {
-        return medicRepository.findByMedicalSpecialtyMedicalSpecialty(medicalSpecialty);
+    public List<Medic> findByMedicalSpecialty(EMedicalSpecialty medicalSpecialty) {
+        return medicRepository.findByMedicalSpecialty(medicalSpecialty);
     }
 
     @Override
     public Medic saveMedic(MedicForm medicForm) {
 
-        Medic medic = new Medic();
+        try{
+            findByCrmOrThrowBadRequestException(medicForm.getCrm());
+            throw new RuntimeException("Medic CRM already in use!");
+        } catch (BadRequestException e){
+            Medic medic = new Medic();
 
-        medic.setName(medicForm.getName());
-        medic.setCrm(medicForm.getCrm());
-        medic.setLandline(medicForm.getLandline());
-        medic.setPhone(medicForm.getPhone());
-        medic.setCep(medicForm.getCep());
-        medic.setAdress(medicForm.getAdress());
-        medic.setMedicalSpecialty(medicForm.getMedicalSpecialty());
+            medic.setName(medicForm.getName());
+            medic.setCrm(medicForm.getCrm());
+            medic.setLandline(medicForm.getLandline());
+            medic.setPhone(medicForm.getPhone());
+            medic.setCep(medicForm.getCep());
+            medic.setAdress(medicForm.getAdress());
+            medic.setMedicalSpecialty(medicForm.getMedicalSpecialty());
 
-        return medicRepository.save(medic);
+            return medicRepository.save(medic);
+        }
     }
 
     @Override

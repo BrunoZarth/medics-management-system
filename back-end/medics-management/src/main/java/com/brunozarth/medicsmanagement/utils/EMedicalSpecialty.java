@@ -1,5 +1,7 @@
 package com.brunozarth.medicsmanagement.utils;
 
+import java.io.Serializable;
+
 public enum EMedicalSpecialty {
     ALERGOLOGIA,
     ANGIOLOGIA,

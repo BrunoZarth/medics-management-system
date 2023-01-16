@@ -1,5 +1,6 @@
 package com.brunozarth.medicsmanagement.entity;
 
+import com.brunozarth.medicsmanagement.utils.EMedicalSpecialty;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 @Entity
 public class Medic {
 
-    public Medic(Long id, String name, String crm, String landline, String phone, String cep, String adress, List<MedicalSpecialty> medicalSpecialty) {
+    public Medic(Long id, String name, String crm, String landline, String phone, String cep, String adress, List<EMedicalSpecialty> medicalSpecialty) {
         this.id = id;
         this.name = name;
         this.crm = crm;
@@ -37,8 +38,9 @@ public class Medic {
 
     String adress;
 
-    @OneToMany
-    List<MedicalSpecialty> medicalSpecialty; // mínimo de duas especialidades
+
+    @ElementCollection
+    List<EMedicalSpecialty> medicalSpecialty; // mínimo de duas especialidades
 
     public Long getId() {
         return id;
@@ -96,11 +98,11 @@ public class Medic {
         this.adress = adress;
     }
 
-    public List<MedicalSpecialty> getMedicalSpecialty() {
+    public List<EMedicalSpecialty> getMedicalSpecialty() {
         return medicalSpecialty;
     }
 
-    public void setMedicalSpecialty(List<MedicalSpecialty> medicalSpecialty) {
+    public void setMedicalSpecialty(List<EMedicalSpecialty> medicalSpecialty) {
         this.medicalSpecialty = medicalSpecialty;
     }
 }
