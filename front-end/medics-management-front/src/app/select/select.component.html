@@ -2,8 +2,8 @@
 
 
 <div *ngIf="readyToSearch" class="table-responsive">
-    <table class="table">
-        <thead class="thead-dark">
+    <table class="table table-hover ">
+        <thead class="thead-dark ">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="col-md-6" *ngFor="let medic of getMedicList()">
+            <tr class="col-md-6 table-light" *ngFor="let medic of getMedicList()">
 
                 <th scope="row">{{medic.id}}</th>
 

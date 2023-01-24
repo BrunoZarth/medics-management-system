@@ -93,9 +93,10 @@ export class MedicService {
     this.http.delete(newUrl).subscribe({
       next: () => {console.log(), this.valid=true},
       error: (e) => {console.error(e), this.valid = false, this.errorMsg = e.message},
-      complete: () => console.info('livro deletado')
+      complete: () => console.info('medic id: ' + id + ' removed')
     })
   };
+
 
 
 }

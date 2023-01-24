@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DeleteComponent } from 'src/app/delete/delete.component';
 import { MedicService } from 'src/app/medic/medic.service';
 import { SelectComponent } from 'src/app/select/select.component';
 
@@ -22,7 +23,7 @@ export class FilterComponent implements OnInit {
   medicList: any;
   sub: any;
 
-  constructor(private medicService: MedicService, private selectComponent: SelectComponent) {
+  constructor(private medicService: MedicService, private selectComponent: SelectComponent, private deleteComponent: DeleteComponent) {
 
   }
 
@@ -65,6 +66,14 @@ export class FilterComponent implements OnInit {
       this.selectComponent.readyToSearch = false
       this.selectComponent.medicList = this.medicList
       this.selectComponent.readyToSearch = this.readyToSearch
+    }
+
+    if (this.component == "delete") {
+      this.deleteComponent.searchType = this.searchType
+      this.deleteComponent.searchValue = this.searchValue
+      this.deleteComponent.readyToSearch = false
+      this.deleteComponent.medicList = this.medicList
+      this.deleteComponent.readyToSearch = this.readyToSearch
     }
   }
 

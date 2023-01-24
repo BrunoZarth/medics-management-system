@@ -39,7 +39,7 @@ import {FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     
   ],
-  providers: [FilterComponent, SelectComponent],
+  providers: [FilterComponent, SelectComponent, DeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
