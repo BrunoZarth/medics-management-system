@@ -1,0 +1,180 @@
+<div class="d-flex justify-content-center align-items-center flex-row">
+    <form action="" [formGroup]="formFilter" (ngSubmit)="storeFilters()">
+        <div class="d-flex flex-column justify-content-between align-items-center">
+            <h4>Search by: </h4>
+
+            <div>
+                <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="find all" name="searchType"
+                        id="flexRadioDefault1" formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        find all
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="id" name="searchType" id="flexRadioDefault2"
+                        formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        id
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="phone" name="searchType" id="flexRadioDefault3"
+                        formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        phone
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="crm" name="searchType" id="flexRadioDefault4"
+                        formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        crm
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="landline" name="searchType"
+                        id="flexRadioDefault5" formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        landline
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="name" name="searchType" id="flexRadioDefault6"
+                        formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        name
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="cep" name="searchType" id="flexRadioDefault7"
+                        formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        cep
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="specialty" name="searchType"
+                        id="flexRadioDefault8" formControlName="searchType">
+                    <label class="form-check-label" for="searchType">
+                        specialty
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <div *ngIf="formFilter.value.searchType == 'id'">
+                    <h4>Enter medic ID number:</h4>
+                    <input type="number" class="form-control rounded-3" id="id" placeholder="id (only numbers)"
+                        formControlName="searchValue">
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'phone'">
+                    <h4>Enter medic phone number:</h4>
+                    <input type="number" class="form-control rounded-3" id="phone" placeholder="phone (only numbers)"
+                        formControlName="searchValue">
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'crm'">
+                    <h4>Enter medic CRM number:</h4>
+                    <input type="number" class="form-control rounded-3" id="crm" placeholder="crm (only numbers)"
+                        formControlName="searchValue">
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'find all'">
+
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'landline'">
+                    <h4>Enter medic landline number:</h4>
+                    <input type="number" class="form-control rounded-3" id="landline"
+                        placeholder="landline (only numbers)" formControlName="searchValue">
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'name'">
+                    <h4>Enter medic name:</h4>
+                    <input type="text" class="form-control rounded-3" id="name" placeholder="name"
+                        formControlName="searchValue">
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'cep'">
+                    <h4>Enter medic CEP number:</h4>
+                    <input type="number" class="form-control rounded-3" id="cep" placeholder="cep (only numbers)"
+                        formControlName="searchValue">
+                </div>
+
+                <div *ngIf="formFilter.value.searchType == 'specialty'">
+                    <h4>Chose medic specialty: </h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="ALERGOLOGIA" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            ALERGOLOGIA
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="ANGIOLOGIA" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            ANGIOLOGIA
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="BUCO_MAXILO" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            BUCO_MAXILO
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="CARDIOLOGIA_CLÍNCA" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            CARDIOLOGIA_CLÍNCA
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="CARDIOLOGIA_INFANTIL" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            CARDIOLOGIA_INFANTIL
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="CIRURGIA_CABEÇA_E_PESCOÇO"
+                            name="searchValue" formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            CIRURGIA_CABEÇA_E_PESCOÇO
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="CIRURGIA_CARDÍACA" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            CIRURGIA_CARDÍACA
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="CIRURGIA_DE_TÓRAX" name="searchValue"
+                            formControlName="searchValue">
+                        <label class="form-check-label" for="searchValue">
+                            CIRURGIA_DE_TÓRAX
+                        </label>
+                    </div>
+                    <br>
+                </div>
+<br>
+            </div>
+
+            <br>
+            <button type="submit">Search</button>
+            
+        </div>
+
+
+    </form>
+</div>
+<br>

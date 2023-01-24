@@ -1,1 +1,34 @@
-<p>select works!</p>
+<app-filter [component]="'select'"></app-filter>
+
+
+<div *ngIf="readyToSearch" class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">CRM</th>
+                <th scope="col">Landline</th>
+                <th scope="col">Phone</th>
+                <th scope="col">CEP</th>
+                <th scope="col">Adress</th>
+                <th scope="col">Specialty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="col-md-6" *ngFor="let medic of getMedicList()">
+
+                <th scope="row">{{medic.id}}</th>
+
+                <td>{{medic.name}}</td>
+                <td>{{medic.crm}}</td>
+                <td>{{medic.landline}}</td>
+                <td>{{medic.phone}}</td>
+                <td>{{medic.cep}}</td>
+                <td>{{medic.adress}}</td>
+                <td>{{medic.medicalSpecialty}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -10,6 +10,12 @@ import { DeleteComponent } from './delete/delete.component';
 import { SharedComponent } from './shared/shared.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { FilterComponent } from './shared/filter/filter.component';
+import { MedicComponent } from './medic/medic.component';
+import { HttpClientModule } from '@angular/common/http';
+
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,13 +26,20 @@ import { FooterComponent } from './shared/footer/footer.component';
     DeleteComponent,
     SharedComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    FilterComponent,
+    MedicComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    
   ],
-  providers: [],
+  providers: [FilterComponent, SelectComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

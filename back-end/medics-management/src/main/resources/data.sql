@@ -4,6 +4,6 @@ insert into medic_medical_specialty (medic_id, medical_specialty) values (1, 2);
 insert into medic_medical_specialty (medic_id, medical_specialty) values (1, 3);
 
 insert into medic (adress, cep, crm, landline, name, phone)
-values ('Sunset Strip, 77', '95555000', '1597539', '33256987', 'Lemmy Kilmister', '59648755532');
+values ('Sunset Strip, 77', '95555000', '2618640', '33256987', 'Lemmy Kilmister', '59648755532');
 insert into medic_medical_specialty (medic_id, medical_specialty) values (2, 4);
 insert into medic_medical_specialty (medic_id, medical_specialty) values (2, 5);
