@@ -8,5 +8,5 @@ export class Medic{
     phone!: string; 
     cep!: string; 
     adress!: string; 
-    medicalSpecialty!: Array<EMedicalSpecialty>;
+    medicalSpecialty!: Array<string>;
 }

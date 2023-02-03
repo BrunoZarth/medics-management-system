@@ -3,6 +3,8 @@ import { HttpClient, HttpHandler, HttpHeaders } from "@angular/common/http"
 import { Medic } from './medic';
 import { EMedicalSpecialty } from './emedicalspecialty';
 import { MedicToSave } from './medictosave';
+import { withRouterConfig } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -62,12 +64,21 @@ export class MedicService {
   };
 
   // CREATE
-  save(medictosave: MedicToSave){
+  save(medictosave: Medic){
     let newUrl = this.url.concat("save");
     return this.http.post<Medic>(newUrl, medictosave).subscribe({
-      next: (m:Medic) => {console.log(m), this.valid = true},
-      error: (e) => {console.error(e), this.valid = false, this.errorMsg = e.message},
-      complete: () => {console.info('complete')}
+      next: (m:Medic) => {console.log("Medic saved sucefully! " + m), this.valid = true, alert("Medic " + m.name + " succefully saved on database!")},
+      error: (e) => {console.error(e), this.valid = false, this.errorMsg = e.message, alert("Medic not saved!")},
+      complete: () => {console.info('complete medic save')}
+    })
+  };
+
+  saveAndResetForm(medictosave: Medic, formDirective: NgForm){
+    let newUrl = this.url.concat("save");
+    return this.http.post<Medic>(newUrl, medictosave).subscribe({
+      next: (m:Medic) => {console.log("Medic saved sucefully! " + m), this.valid = true, alert("Medic " + m.name + " succefully saved on database!")},
+      error: (e) => {console.error(e), this.valid = false, this.errorMsg = e.message, alert("Medic failed to save. Review field values.")},
+      complete: () => {console.info('complete medic save'), formDirective.resetForm(), window.location.reload();}
     })
   };
 
@@ -97,6 +108,15 @@ export class MedicService {
     })
   };
 
+  // GET ADRESS VIA CEP
+  getAdressViaCep(cep: string){
+    let apiUrl = "http://viacep.com.br/ws/" + cep + "/json/";
 
+    return this.http.get(apiUrl); //.subscribe({
+      //next: (adress) => {console.log(adress + "deu tudo certo: "), adress.valueOf},
+     // error: (e) => {console.log("se deu merda: " + e.ok), e.ok},
+      //complete: () => {console.log("get adress via cep complete")}
+    //})
+  }
 
 }

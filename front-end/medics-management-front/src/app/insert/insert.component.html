@@ -1,1 +1,134 @@
-<p>insert works!</p>
+<form class="form-horizontal d-flex flex-column justify-content-center align-items-center" [formGroup]="formGroup"
+  (ngSubmit)="submitForm()" #formDirective="ngForm">
+
+
+  <div class="form-group d-flex flex-column ">
+    <label class="control-label col-sm-2 " for="name">Name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="name" formControlName="name"
+        [ngClass]="{'is-invalid': formGroup.get('name')?.invalid && formGroup.get('name')?.touched}">
+
+
+      <div class="invalid-feedback">Name length must be between 3-120</div>
+    </div>
+  </div>
+  <div class="form-group d-flex flex-column">
+    <label class="control-label col-sm-2" for="crm">CRM:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="crm" formControlName="crm"
+        [ngClass]="{'is-invalid': formGroup.get('crm')?.invalid && formGroup.get('crm')?.touched}">
+
+
+      <div class="invalid-feedback">CRM length must be 6, only numbers</div>
+    </div>
+  </div>
+  <div class="form-group d-flex flex-column">
+    <label class="control-label col-sm-2" for="landline">Landline:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="landline" formControlName="landline"
+        [ngClass]="{'is-invalid': formGroup.get('landline')?.invalid && formGroup.get('landline')?.touched}">
+
+      <div class="invalid-feedback">Length must be 11, only numbers</div>
+    </div>
+  </div>
+  <div class="form-group d-flex flex-column">
+    <label class="control-label col-sm-2" for="phone">Phone:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="phone" formControlName="phone"
+        [ngClass]="{'is-invalid': formGroup.get('phone')?.invalid && formGroup.get('phone')?.touched}">
+
+
+      <div class="invalid-feedback">Phone length must be 11, only numbers</div>
+    </div>
+  </div>
+  <div class="form-group d-flex  flex-column">
+    <label class="control-label col-sm-2" for="phone">CEP:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="cep" formControlName="cep"
+        [ngClass]="{'is-invalid': formGroup.get('cep')?.invalid && formGroup.get('cep')?.touched}">
+
+
+      <div class="invalid-feedback">CEPlength must be 8, only numbers</div>
+    </div>
+  </div>
+
+  <div class="form-group d-flex " *ngIf="!formGroup.get('cep')?.invalid ">
+
+
+    <div class="d-flex flex-wrap justify-content-md-center row">
+
+      <div *ngIf="!adress.erro" class="col">
+        <label class="control-label col-sm-2" for="localidade">Local:</label>
+        <input type="text" class="form-control" id="localidade" formControlName="localidade"
+          placeholder="{{adress.localidade}}" readonly>
+      </div>
+
+      <div *ngIf="!adress.erro" class="col">
+        <label class="control-label col-sm-2" for="bairro">bairro:</label>
+        <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="{{adress.bairro}}"
+          readonly>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div *ngIf="!adress.erro" class="col">
+        <label class="control-label col-sm-2" for="complemento">complemento:</label>
+
+        <input type="text" class="form-control" id="complemento" formControlName="complemento"
+          placeholder="{{adress.complemento}}" readonly>
+      </div>
+
+      <div *ngIf="!adress.erro" class="col">
+        <label class="control-label col-sm-2" for="ddd">ddd:</label>
+
+        <input type="text" class="form-control" id="ddd" formControlName="ddd" placeholder="{{adress.ddd}}" readonly>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div *ngIf="!adress.erro" class="col">
+        <label class="control-label col-sm-2" for="logradouro">logradouro:</label>
+
+        <input type="text" class="form-control" id="logradouro" formControlName="logradouro"
+          placeholder="{{adress.logradouro}}" readonly>
+      </div>
+      <div *ngIf="!adress.erro" class="col">
+        <label class="control-label col-sm-2" for="uf">uf:</label>
+
+        <input type="text" class="form-control" id="uf" formControlName="uf" placeholder="{{adress.uf}}" readonly>
+      </div>
+    </div>
+
+    <div *ngIf="adress.erro">
+      <p class="text-danger">Adress not found. Please enter a valid CEP.</p>
+    </div>
+
+  </div>
+
+  <div><br></div>
+
+  <div class="form-group d-flex flex-wrap flex-column border border-primary p-3">
+    <label class="control-label align-self-center" for="medicalSpecialty"><h4>Specialties</h4></label><div><br></div>
+    <div class="d-flex flex-column align-self-center">
+      <div class="form-check" *ngFor="let enum of eMedicalSpecialty | keyvalue">
+        <input class="form-check-input" type="checkbox" value="{{enum.key}}" name="medicalSpecialty"
+          (change)="addOrRemoveFromSpecialtySet(enum.key)" >
+        {{enum.key}}
+
+      </div>
+    </div>
+    
+  </div>
+  <p class="text-warning" *ngIf="!specialListIsValid">Please choose unless 2 specialties.</p>
+  <div><br></div>
+
+  <div class="form-group d-flex flex-column ">
+
+
+    <div class="d-flex flex-wrap flex-column">
+      <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid || adress.erro || !specialListIsValid">Submit</button>
+
+    </div>
+  </div>
+
+</form>
