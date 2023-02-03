@@ -90,12 +90,25 @@ export class MedicService {
 
     let newUrl = this.url.concat("update");
 
-    return this.http.put<Medic>(newUrl, medic).subscribe({
+    return this.http.post<Medic>(newUrl, medic).subscribe({
       next: (m:Medic) => {console.log(m), this.valid = true},
       error: (e) => {console.error(e), this.valid = false, this.errorMsg = e.message},
       complete: () => {console.info('updated')}
     })
   };
+
+  updateAndResetForm(medic: Medic, formDirective: NgForm){
+    console.log("updateAndResetForm medic ok");
+    console.log(medic);
+
+    let newUrl = this.url.concat("update");
+
+    return this.http.post<Medic>(newUrl, medic).subscribe({
+      next: (m:Medic) => {console.log(m), this.valid = true, alert("Medic " + m.name + " succefully updated on database!")},
+      error: (e) => {console.error(e), this.valid = false, this.errorMsg = e.message, alert("Medic failed to update. Review field values.")},
+      complete: () => {console.info('complete update medic'), formDirective.resetForm(), window.location.reload();}
+    })
+  }
 
   // DELETE
   deleteById(id: string){

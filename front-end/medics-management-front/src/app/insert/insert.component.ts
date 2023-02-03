@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { isEmpty, map, observable, Observable } from 'rxjs';
 import { MedicService } from '../medic/medic.service';
@@ -12,24 +12,31 @@ import { Medic } from '../medic/medic';
 })
 export class InsertComponent implements OnInit {
 
+
+
   formGroup!: FormGroup;
   adress!: any;
   medicalSpecialty: Set<string> = new Set<string>;
   specialListIsValid = false;
   eMedicalSpecialty!: typeof EMedicalSpecialty;
 
+  @Input()
+  medic: Medic = new Medic();
+
   @ViewChild('formDirective')
   private formDirective!: NgForm;
 
-  constructor(private medicService: MedicService) { }
+  constructor(private medicService: MedicService) { 
+    this.medic.medicalSpecialty = [];
+  }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
-      crm: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(7), Validators.pattern(/^[0-9]{6}$/)]),
-      landline: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{11}$/)]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{11}$/)]),
-      cep: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{8}$/)], [this.cepIsValid()]),
+      name: new FormControl(this.medic.name, [Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
+      crm: new FormControl(this.medic.crm, [Validators.required, Validators.minLength(3), Validators.maxLength(7), Validators.pattern(/^[0-9]{6}$/)]),
+      landline: new FormControl(this.medic.landline, [Validators.required, Validators.pattern(/^[0-9]{11}$/)]),
+      phone: new FormControl(this.medic.phone, [Validators.required, Validators.pattern(/^[0-9]{11}$/)]),
+      cep: new FormControl(this.medic.cep, [Validators.required, Validators.pattern(/^[0-9]{8}$/)], [this.cepIsValid()]),
       localidade: new FormControl(''),
       uf: new FormControl(''),
       bairro: new FormControl(''),
@@ -39,10 +46,11 @@ export class InsertComponent implements OnInit {
       ibge: new FormControl(''),
       logradouro: new FormControl(''),
       siafi: new FormControl(''),
-      medicalSpecialty: new FormControl(''),
+      medicalSpecialty: new FormControl(this.medic.medicalSpecialty),
     });
 
     this.eMedicalSpecialty = EMedicalSpecialty
+    
   }
 
   submitForm(): boolean {
@@ -51,18 +59,22 @@ export class InsertComponent implements OnInit {
       medic.adress = this.adress.localidade + "/" + this.adress.uf + ", Bairro: " + this.adress.bairro + ", Logradouro: " + this.adress.logradouro + ", " + this.adress.complemento
       medic.cep = this.formGroup.value.cep
       medic.crm = this.formGroup.value.crm
-      medic.id = this.formGroup.value.id
+      //medic.id = this.formGroup.value.id
       medic.landline = this.formGroup.value.landline
       medic.name = this.formGroup.value.name
       medic.phone = this.formGroup.value.phone
       medic.medicalSpecialty = []
       this.medicalSpecialty.forEach((m) => medic.medicalSpecialty.push(m))
+      this.medic.medicalSpecialty.forEach((m) => medic.medicalSpecialty.push(m))
 
-      this.medicService.saveAndResetForm(medic, this.formDirective)
 
-      //this.formGroup.reset()
-      //this.formDirective.resetForm()
+      if(this.medic.id != null){
+        this.medicService.updateAndResetForm(medic, this.formDirective)
+      } else{
+        this.medicService.saveAndResetForm(medic, this.formDirective)
+      } 
 
+      
 
       return true
     } else {
@@ -122,6 +134,26 @@ export class InsertComponent implements OnInit {
       this.specialListIsValid = false;
       console.log("list must be false :" + this.specialListIsValid)
     }
+  }
+
+  verifyIfIsOnSpecialtyList(specialty: string) {
+    if(!this.isUpdateForm) return false; else
+    if (this.medic.medicalSpecialty.includes(specialty)){
+      this.medicalSpecialty.add(specialty)
+      if(this.medicalSpecialty.size >= 2)this.specialListIsValid = true
+
+      return true
+    } else return false
+    
+    
+  }
+
+  isUpdateForm(){
+    if(this.medic.id != null){
+      return true
+    } else{
+      return false
+    } 
   }
 }
 

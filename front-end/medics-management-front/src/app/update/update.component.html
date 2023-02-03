@@ -1,1 +1,53 @@
-<p>update works!</p>
+<div *ngIf="!readyToUpdate" class="d-flex justify-content-center"><h3 class="text-warning">Choose medic to update </h3></div>
+<div *ngIf="readyToUpdate" class="d-flex justify-content-center"><h3 class="text-warning" (click)="reloadPage()">Modify fields or click here to choose another medic </h3></div>
+
+<br>
+<app-filter *ngIf="!readyToUpdate" [component]="'update'"></app-filter>
+
+
+<div *ngIf="readyToSearch && !readyToUpdate" class="table-responsive">
+    <table class="table table-hover ">
+        <thead class="thead-dark ">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">CRM</th>
+                <th scope="col">Landline</th>
+                <th scope="col">Phone</th>
+                <th scope="col">CEP</th>
+                <th scope="col">Adress</th>
+                <th scope="col">Specialty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="col-md-6 table-warning" (click)="updateMedic(medic)" *ngFor="let medic of getMedicList()">
+                <th scope="row">{{medic.id}}</th>
+
+                <td>{{medic.name}}</td>
+                <td>{{medic.crm}}</td>
+                <td>{{medic.landline}}</td>
+                <td>{{medic.phone}}</td>
+                <td>{{medic.cep}}</td>
+                <td>{{medic.adress}}</td>
+                <td>{{medic.medicalSpecialty}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<app-insert *ngIf="readyToUpdate" [medic]="medic"></app-insert>
+
+<!-- <app-insert [medic]="
+{
+    id : 1,
+    name : 'name',
+    crm : 'crm',
+    landline : 'landline',
+    phone : 'phone',
+    cep : 'cep',
+    adress : 'adress',
+    medicalSpecialty : ['hahah', 'uhuhu']
+}
+">
+</app-insert> -->

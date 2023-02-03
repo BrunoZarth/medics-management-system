@@ -12,7 +12,7 @@
       <div class="invalid-feedback">Name length must be between 3-120</div>
     </div>
   </div>
-  <div class="form-group d-flex flex-column">
+  <div class="form-group d-flex flex-column" *ngIf="!isUpdateForm()">
     <label class="control-label col-sm-2" for="crm">CRM:</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="crm" formControlName="crm"
@@ -112,7 +112,7 @@
     <div class="d-flex flex-column align-self-center">
       <div class="form-check" *ngFor="let enum of eMedicalSpecialty | keyvalue">
         <input class="form-check-input" type="checkbox" value="{{enum.key}}" name="medicalSpecialty"
-          (change)="addOrRemoveFromSpecialtySet(enum.key)" >
+          (change)="addOrRemoveFromSpecialtySet(enum.key)" [checked]="verifyIfIsOnSpecialtyList(enum.key)" >
         {{enum.key}}
 
       </div>

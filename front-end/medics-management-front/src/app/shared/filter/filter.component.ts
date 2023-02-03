@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DeleteComponent } from 'src/app/delete/delete.component';
 import { MedicService } from 'src/app/medic/medic.service';
 import { SelectComponent } from 'src/app/select/select.component';
+import { UpdateComponent } from 'src/app/update/update.component';
 
 
 @Component({
@@ -23,10 +24,10 @@ export class FilterComponent implements OnInit {
   medicList: any;
   sub: any;
 
-  constructor(private medicService: MedicService, private selectComponent: SelectComponent, private deleteComponent: DeleteComponent) {
+  constructor(private medicService: MedicService, private selectComponent: SelectComponent, private deleteComponent: DeleteComponent, private updateComponent: UpdateComponent) {
 
   }
-
+  
   ngOnInit(): void {
     this.formFilter = new FormGroup({
       searchType: new FormControl(this.searchType),
@@ -52,12 +53,12 @@ export class FilterComponent implements OnInit {
     } else {
       console.log("incorrect values!")
       this.readyToSearch = false
-      this.updateComponent();
+      this.updateComponents();
     }
     this.formFilter.reset
   }
 
-  updateComponent() {
+  updateComponents() {
     console.log("update components")
 
     if (this.component == "select") {
@@ -75,6 +76,14 @@ export class FilterComponent implements OnInit {
       this.deleteComponent.medicList = this.medicList
       this.deleteComponent.readyToSearch = this.readyToSearch
     }
+
+    if (this.component == "update") {
+      this.updateComponent.searchType = this.searchType
+      this.updateComponent.searchValue = this.searchValue
+      this.updateComponent.readyToSearch = false
+      this.updateComponent.medicList = this.medicList
+      this.updateComponent.readyToSearch = this.readyToSearch
+    }
   }
 
   getMedicService() {
@@ -87,7 +96,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -100,7 +109,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -113,7 +122,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -125,7 +134,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -137,7 +146,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -150,7 +159,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -162,7 +171,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
@@ -174,7 +183,7 @@ export class FilterComponent implements OnInit {
             console.log(e)
             this.selectComponent.readyToSearch = false
           }, complete: () => {
-            this.updateComponent();
+            this.updateComponents();
           }
         });
       }
