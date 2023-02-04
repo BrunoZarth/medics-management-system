@@ -1,7 +1,7 @@
 #
 <br>
 
-                                             Welcome to Medics Management System!
+                                     Welcome to Medics Management System!
 
 
 This system was totally developed by myself to practice and to make available for anyone for possible queries and reuse of codes in day-by-day programming routine.
