@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
     database:
+        container_name: database
         image: mysql:latest   
         ports:
             - "3307:3306"
@@ -15,6 +16,7 @@ services:
         volumes:
             - medicsDB:/var/lib/mysql
     backend:
+        container_name: backend
         build: ./back-end/medics-management        
         ports:
             - "8080:8080"
@@ -22,5 +24,14 @@ services:
             SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/medics
         depends_on:
             - database
+    frontend:
+        container_name: frontend
+        build: ./front-end/medics-management-front
+        ports:
+            - "4200:4200"
+        expose:
+            - "4200"    
+        depends_on:
+            - backend   
 volumes:
     medicsDB:
