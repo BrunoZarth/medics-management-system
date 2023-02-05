@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { isEmpty, map, observable, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MedicService } from '../medic/medic.service';
 import { EMedicalSpecialty } from '../medic/emedicalspecialty';
 import { Medic } from '../medic/medic';
@@ -26,7 +26,7 @@ export class InsertComponent implements OnInit {
   @ViewChild('formDirective')
   private formDirective!: NgForm;
 
-  constructor(private medicService: MedicService) { 
+  constructor(private medicService: MedicService) {
     this.medic.medicalSpecialty = [];
   }
 
@@ -50,7 +50,7 @@ export class InsertComponent implements OnInit {
     });
 
     this.eMedicalSpecialty = EMedicalSpecialty
-    
+
   }
 
   submitForm(): boolean {
@@ -63,18 +63,13 @@ export class InsertComponent implements OnInit {
       medic.landline = this.formGroup.value.landline
       medic.name = this.formGroup.value.name
       medic.phone = this.formGroup.value.phone
-      medic.medicalSpecialty = []
-      this.medicalSpecialty.forEach((m) => medic.medicalSpecialty.push(m))
-      this.medic.medicalSpecialty.forEach((m) => medic.medicalSpecialty.push(m))
+      medic.medicalSpecialty = this.generateSpecialtyList()
 
-
-      if(this.medic.id != null){
+      if (this.medic.id != null) {
         this.medicService.updateAndResetForm(medic, this.formDirective)
-      } else{
+      } else {
         this.medicService.saveAndResetForm(medic, this.formDirective)
-      } 
-
-      
+      }
 
       return true
     } else {
@@ -83,14 +78,11 @@ export class InsertComponent implements OnInit {
     }
   }
 
-
   specialtyListIsValid() {
     return (control: AbstractControl): Observable<ValidationErrors> | any => {
       if (this.specialListIsValid) return true; else return false
-      }
     }
-
-  
+  }
 
   cepIsValid(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors> | any => {
@@ -102,11 +94,11 @@ export class InsertComponent implements OnInit {
         });
       }
 
-      return this.validarCep(control.value)
+      return this.validateCep(control.value)
     };
   }
 
-  async validarCep(cep: any) {
+  async validateCep(cep: any) {
     if (!this.adress.erro) {
       return true
     } else {
@@ -122,10 +114,14 @@ export class InsertComponent implements OnInit {
     console.log(check + "começou checkagem")
     if (this.medicalSpecialty.has(check)) {
       this.medicalSpecialty.delete(check)
-    } else {
-      this.medicalSpecialty.add(check)
-    }
-    console.log(this.medicalSpecialty)
+      if (this.medic.medicalSpecialty.includes(check)) {
+        let index = this.medic.medicalSpecialty.indexOf(check)
+        this.medic.medicalSpecialty.splice(index, 1);
+      }
+    } else this.medicalSpecialty.add(check)
+
+    console.log("this.medicalSpecialty" + this.medicalSpecialty)
+    console.log("this.medic.medicalSpecialty" + this.medic.medicalSpecialty)
 
     if (this.medicalSpecialty.size >= 2) {
       this.specialListIsValid = true;
@@ -137,25 +133,29 @@ export class InsertComponent implements OnInit {
   }
 
   verifyIfIsOnSpecialtyList(specialty: string) {
-    if(!this.isUpdateForm) return false; else
-    if (this.medic.medicalSpecialty.includes(specialty)){
-      this.medicalSpecialty.add(specialty)
-      if(this.medicalSpecialty.size >= 2)this.specialListIsValid = true
+    if (!this.isUpdateForm) return false; else
+      if (this.medic.medicalSpecialty.includes(specialty)) {
+        this.medicalSpecialty.add(specialty)
+        if (this.medicalSpecialty.size >= 2) this.specialListIsValid = true
 
-      return true
-    } else return false
-    
-    
+        return true
+      } else return false
   }
 
-  isUpdateForm(){
-    if(this.medic.id != null){
+  isUpdateForm() {
+    if (this.medic.id != null) {
       return true
-    } else{
+    } else {
       return false
-    } 
+    }
+  }
+
+  generateSpecialtyList(): string[] {
+    let medicalSpecialtySet = new Set<string>()
+    let medicalSpecialtyArray = new Array<string>()
+    this.medicalSpecialty.forEach((m) => medicalSpecialtySet.add(m))
+    this.medic.medicalSpecialty.forEach((m) => medicalSpecialtySet.add(m))
+    medicalSpecialtySet.forEach((m) => medicalSpecialtyArray.push(m))
+    return medicalSpecialtyArray
   }
 }
-
-
-// pattern(/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/)
